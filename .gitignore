@@ -2,6 +2,8 @@
 .env*/
 .ipynb_checkpoints/
 dist/
+.tox/
+*.egg-info/
 
 # File patterns
 *.pyc
