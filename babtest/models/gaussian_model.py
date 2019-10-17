@@ -9,7 +9,7 @@ from pymc import Normal
 from pymc import Uniform
 from pymc.distributions import normal_like
 
-from babtest.models.abstract_model import AbstractModel
+from .abstract_model import AbstractModel
 
 
 class GaussianModel(AbstractModel):

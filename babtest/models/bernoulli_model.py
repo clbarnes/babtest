@@ -8,7 +8,7 @@ from pymc import Bernoulli
 from pymc import Uniform
 from pymc.distributions import bernoulli_like
 
-from babtest.models.abstract_model import AbstractModel
+from .abstract_model import AbstractModel
 
 
 class BernoulliModel(AbstractModel):

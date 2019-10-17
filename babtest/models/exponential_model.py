@@ -8,7 +8,7 @@ from pymc import Exponential
 from pymc import Uniform
 from pymc.distributions import exponential_like
 
-from babtest.models.abstract_model import AbstractModel
+from .abstract_model import AbstractModel
 
 
 class ExponentialModel(AbstractModel):

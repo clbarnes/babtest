@@ -6,21 +6,15 @@ from __future__ import unicode_literals
 
 from pymc import MCMC
 
-from .models.bernoulli_model import BernoulliModel
-from .models.exponential_model import ExponentialModel
-from .models.gaussian_model import GaussianModel
-from .models.lognormal_model import LognormalModel
-from .models.poisson_model import PoissonModel
-from .models.student_model import StudentModel
+from .models import AbstractModel
+from .models import BernoulliModel  # noqa pylint: disable=unused-import
+from .models import ExponentialModel  # noqa pylint: disable=unused-import
+from .models import GaussianModel  # noqa pylint: disable=unused-import
+from .models import LognormalModel  # noqa pylint: disable=unused-import
+from .models import PoissonModel  # noqa pylint: disable=unused-import
+from .models import StudentModel  # noqa pylint: disable=unused-import
 
-models = {
-    'bernoulli': BernoulliModel,
-    'exponential': ExponentialModel,
-    'gaussian': GaussianModel,
-    'lognormal': LognormalModel,
-    'poisson': PoissonModel,
-    'student': StudentModel,
-}
+models = {cls.key(): cls for cls in AbstractModel.__subclasses__()}
 
 
 class BABTest:
@@ -37,9 +31,13 @@ class BABTest:
         self.control = control
         self.variant = variant
         self.sampler = None
-        if model not in models:
-            raise KeyError('Unknown model - please select a model from {}'.format(models.keys()))
-        self.model = models[model](self.control, self.variant)
+        if not isinstance(model, AbstractModel):
+            try:
+                model = models[model]
+            except KeyError:
+                raise KeyError('Unknown model - please select a model from {}'.format(models.keys()))
+
+        self.model = model(self.control, self.variant)
         self.verbose = verbose
 
     def run(self, n_iter=110000, n_burn=10000, thin=1):

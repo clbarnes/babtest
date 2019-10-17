@@ -234,3 +234,13 @@ class AbstractModel(object):
             'mean': mean_val,
             'mode': mode_val,
         }
+
+    @classmethod
+    def key(cls):
+        s = cls.__name__
+
+        model = 'Model'
+        if s.endswith(model):
+            s = s[:-len(model)]
+
+        return s.lower()

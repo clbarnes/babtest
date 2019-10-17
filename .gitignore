@@ -8,3 +8,4 @@ dist/
 # File patterns
 *.pyc
 *.DS_Store
+.env*
